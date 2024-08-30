@@ -1,0 +1,17 @@
+FUNCTION Initialization GLOBAL
+    IF (Folder.IfFolderExists.DoesNotExist Path: $'''C:\\RPA Challenge''') THEN
+        Folder.Create FolderPath: $'''C:\\''' FolderName: $'''RPA Challenge''' Folder=> NewFolder
+        SET Path TO $'''C:\\RPA Challenge\\'''
+    END
+    IF (Folder.IfFolderExists.Exists Path: $'''C:\\RPA Challenge''') THEN
+        SET Path TO $'''C:\\RPA Challenge\\'''
+    END
+    IF (File.IfFile.DoesNotExist File: $'''%Path%challenge.xlsx''') THEN
+        CALL 'Excel Error'
+    END
+    IF (File.IfFile.Exists File: $'''%Path%challenge.xlsx''') THEN
+        Excel.LaunchExcel.LaunchAndOpen Path: $'''C:\\Users\\prati\\Downloads\\challenge.xlsx''' Visible: True ReadOnly: False LoadAddInsAndMacros: False Instance=> ExcelInstance
+        Excel.ReadFromExcel.ReadCells Instance: ExcelInstance StartColumn: $'''A''' StartRow: 1 EndColumn: $'''G''' EndRow: 11 ReadAsText: False FirstLineIsHeader: True RangeValue=> ExcelData
+        Excel.CloseExcel.Close Instance: ExcelInstance
+    END
+END FUNCTION

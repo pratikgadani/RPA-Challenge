@@ -1,0 +1,9 @@
+Display.ShowMessageDialog.ShowMessage Title: $'''Error''' Message: $'''Excel Not Found. Do you want to Retry?
+
+Please make sure excel file is available in the given path''' Icon: Display.Icon.Information Buttons: Display.Buttons.RetryCancel DefaultButton: Display.DefaultButton.Button1 IsTopMost: True ButtonPressed=> ButtonPressed
+IF ButtonPressed = $'''Retry''' THEN
+    CALL Initialization
+ELSE
+    Display.ShowMessageDialog.ShowMessage Title: $'''Unsuccessful''' Message: $'''User Cancelled. Excel File not found''' Icon: Display.Icon.ErrorIcon Buttons: Display.Buttons.OK DefaultButton: Display.DefaultButton.Button1 IsTopMost: True ButtonPressed=> ButtonPressed2
+    EXIT Code: 0
+END
